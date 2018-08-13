@@ -9,7 +9,7 @@ handlers:
   static_dir: styles
 - url: /.*
   script: main.app
-- url: templates
+- url: /templates
   static_dir: templates
 
 libraries:
