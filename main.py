@@ -13,7 +13,7 @@ class MainHandler(webapp2.RequestHandler):
         self.response.write("Welcome to Study Spot")
 class LogInHandler(webapp2.RequestHandler):
     def get(self):
-        LogIn_template = jinji_current_directory.get_template("/templates/login.html")
+        LogIn_template = jinja_current_directory.get_template("/templates/login.html")
         self.response.write("Log In Here")
 class AddCoursesHandler(webapp2.RequestHandler):
     def get(self):
