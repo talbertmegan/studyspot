@@ -24,10 +24,10 @@ class AddCoursesHandler(webapp2.RequestHandler):
 
 class AddTestsHandler(webapp2.RequestHandler):
     def get(self):
-        addtests_template = jinji_current_directory.get_template("/templates/tests.html")
+        addtests_template = jinji_current_directory.get_template("/templates/mtests.html")
         self.response.write("Add test dates")
 
-class SignupHandler(webapp2.RequestHandler):
+class SignUpHandler(webapp2.RequestHandler):
     def get(self):
         SignUp_template = jinja_current_directory.get_template(
             "/templates/signup.html")
