@@ -10,8 +10,8 @@ jinja_env = jinja2.Environment(
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        template= jinji_env.get_template("/templates/home.html")
-        self.response.write("Welcome to Study Spot")
+        template= jinja_env.get_template("/templates/home.html")
+        self.response.write(template.render())
 
 class LogInHandler(webapp2.RequestHandler):
     def get(self):
