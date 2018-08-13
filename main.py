@@ -20,9 +20,16 @@ class AddCoursesHandler(webapp2.RequestHandler):
 class AddTestsHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write("Add test dates")
+class SignupHandler(webapp2.RequestHandler):
+    def get(self):
+        Signup_template = jinja_current_directory.get_template(
+            "templates/signup.html")
+        self.response.write(Signup_template.render())
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LogInHandler),
     ('/addcourses', AddCoursesHandler),
-    ('/tests', AddTestsHandler)
+    ('/tests', AddTestsHandler),
+    ('/signup', SignupHandler),
+        ], debug=True)
