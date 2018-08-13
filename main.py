@@ -63,6 +63,12 @@ class ChatHandler(webapp2.RequestHandler):
             "/templates/chat.html")
         self.response.write(chatTemplate.render())
 
+class ViewCourseHandler(webapp2.RequestHandler):
+    def get(self):
+        userdata_template = jinja_env.get_template("/templates/userdata.html")
+        fields = {"names": User.query().filter(User.email == user.email()).get()}
+        self.response.write(template.render(fields))
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LogInHandler),
@@ -70,4 +76,5 @@ app = webapp2.WSGIApplication([
     ('/tests', AddTestsHandler),
     ('/signup', SignUpHandler),
     ('/chat', ChatHandler),
+    ('/viewcourses', ViewCourseHandler),
     ], debug=True)
