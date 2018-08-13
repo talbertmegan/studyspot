@@ -11,16 +11,20 @@ jinja_env = jinja2.Environment(
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write("Welcome to Study Spot")
+
 class LogInHandler(webapp2.RequestHandler):
     def get(self):
         LogIn_template = jinji_current_directory.get_template("/templates/login.html")
         self.response.write("Log In Here")
+
 class AddCoursesHandler(webapp2.RequestHandler):
     def get(self):
         self.respone.write("Add Courses Here")
+
 class AddTestsHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write("Add test dates")
+        
 class SignupHandler(webapp2.RequestHandler):
     def get(self):
         Signup_template = jinja_current_directory.get_template(
