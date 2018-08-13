@@ -14,17 +14,27 @@ class MainHandler(webapp2.RequestHandler):
 
 class LogInHandler(webapp2.RequestHandler):
     def get(self):
-        LogIn_template = jinja_env.get_template("/templates/login.html")
-        self.response.write("Log In Here")
+        google_login_template = jinja_env.get_template("/templates/google_login.html")
+        new_user_template = jinja_env.get_template("/templates/new_user.html")
+
+        user = users.get_current_user()
+
+        if user:
+            existing_user = User.query().filter(User.email == user.email()).get()
+            username = user.username()
+        else:
+            self.response.write(google_login_template.render({ }))
+
+
 
 class AddCoursesHandler(webapp2.RequestHandler):
     def get(self):
-        addcourses_template = jinja_env.get_template("/templates/addcourses.html")
-        self.response.write(addcourses_template.render())
+        addcourses_template = jinji_env.get_template("/templates/addcourses.html")
+        self.respone.write("Add Courses Here")
 
 class AddTestsHandler(webapp2.RequestHandler):
     def get(self):
-        addtests_template = jinja_env.get_template("/templates/tests.html")
+        addtests_template = jinji_env.get_template("/templates/tests.html")
         self.response.write("Add test dates")
 
 class SignUpHandler(webapp2.RequestHandler):
