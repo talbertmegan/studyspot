@@ -27,7 +27,7 @@ class LogInHandler(webapp2.RequestHandler):
         if user:
             existing_user = User.query().filter(User.email == user.email()).get()
             username = user.username()
-        if not existing_user:
+            if not existing_user:
                 fields = {
                     "username": username,
                     "logout_url": logout_url,
@@ -36,7 +36,7 @@ class LogInHandler(webapp2.RequestHandler):
             else:
                 self.redirect('/addcourses.html')
         else:
-            self.response.write(google_login_template.render({ login_url": login_url  }))
+            self.response.write(google_login_template.render({ "login_url": login_url  }))
 
 
 class AddCoursesHandler(webapp2.RequestHandler):
