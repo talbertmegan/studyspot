@@ -19,12 +19,12 @@ class LogInHandler(webapp2.RequestHandler):
 
 class AddCoursesHandler(webapp2.RequestHandler):
     def get(self):
-        addcourses_template = jinji_current_directory.get_template("/templates/addcourses.html")
-        self.respone.write("Add Courses Here")
+        addcourses_template = jinja_current_directory.get_template("/templates/addcourses.html")
+        self.respone.write(addcourses_template.render())
 
 class AddTestsHandler(webapp2.RequestHandler):
     def get(self):
-        addtests_template = jinji_current_directory.get_template("/templates/tests.html")
+        addtests_template = jinja_current_directory.get_template("/templates/tests.html")
         self.response.write("Add test dates")
 
 class SignUpHandler(webapp2.RequestHandler):
