@@ -10,7 +10,7 @@ jinja_env = jinja2.Environment(
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write("Welcome to Hogwarts' Online Portal")
+        self.response.write("Welcome to Study Spot")
 
 
 
