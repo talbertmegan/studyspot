@@ -11,6 +11,7 @@ jinja_env = jinja2.Environment(
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write("Welcome to Study Spot")
+        
 class SignupHandler(webapp2.RequestHandler):
     def get(self):
         Signup_template = jinja_current_directory.get_template(
@@ -23,4 +24,3 @@ app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/signup', SignupHandler),
     ], debug=True)
-    
