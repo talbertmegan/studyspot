@@ -27,7 +27,7 @@ class LogInHandler(webapp2.RequestHandler):
         if user:
             existing_user = User.query().filter(User.email == user.email()).get()
             username = user.username()
-            if not existing_user:
+        if not existing_user:
                 fields = {
                     "username": username,
                     "url_logout": url_logout,
