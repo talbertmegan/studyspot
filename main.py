@@ -1,7 +1,11 @@
 import webapp2
 import os
 import jinja2
+from google.appengine.api import users
+from google.appengine.ext import ndb
 
+url_logout = users.create_url_logout('/')
+url_login = users.create_url_login('/')
 
 jinja_env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -29,7 +33,7 @@ class LogInHandler(webapp2.RequestHandler):
                 }
                 self.response.write(new_user_template.render(fields))
             else:
-
+                self.redirect('/addcourses.html')
         else:
             self.response.write(google_login_template.render({ }))
 
