@@ -57,10 +57,17 @@ class SignUpHandler(webapp2.RequestHandler):
             "/templates/signup.html")
         self.response.write("Sign Up Here")
 
+class ChatHandler(webapp2.RequestHandler):
+    def get(self):
+        chatTemplate = jinja_env.get_template(
+            "/templates/chat.html")
+        self.response.write(chatTemplate.render())
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LogInHandler),
     ('/addcourses', AddCoursesHandler),
     ('/tests', AddTestsHandler),
     ('/signup', SignUpHandler),
+    ('/chat', ChatHandler),
     ], debug=True)

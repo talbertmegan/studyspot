@@ -2,7 +2,7 @@ body {
     display: grid;
     height: 100vh;
     grid-template-rows: 100px auto 50px;
-    grid-template-columns: 200px auto;
+    grid-template-columns: 200px auto 200px;
 }
  header{
    grid-column: 1 / span 2;
@@ -25,5 +25,17 @@ body {
    grid-row: 3;
    background-color: red;
    text-align: center;
-
  }
+ section #menu{
+   grid-column: 1 / span 1;
+   grid-row:2;
+ }
+section #chat{
+  grid-column: 2 / span 1;
+  grid-row:2;
+}
+section #calendar{
+  grid-column: 3 / span 1;
+  grid-row: 2;
+  background-color: grey;
+}
