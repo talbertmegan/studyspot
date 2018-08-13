@@ -14,22 +14,22 @@ class MainHandler(webapp2.RequestHandler):
 
 class LogInHandler(webapp2.RequestHandler):
     def get(self):
-        LogIn_template = jinja_current_directory.get_template("/templates/login.html")
+        LogIn_template = jinja_env.get_template("/templates/login.html")
         self.response.write("Log In Here")
 
 class AddCoursesHandler(webapp2.RequestHandler):
     def get(self):
-        addcourses_template = jinja_current_directory.get_template("/templates/addcourses.html")
-        self.respone.write(addcourses_template.render())
+        addcourses_template = jinja_env.get_template("/templates/addcourses.html")
+        self.response.write(addcourses_template.render())
 
 class AddTestsHandler(webapp2.RequestHandler):
     def get(self):
-        addtests_template = jinja_current_directory.get_template("/templates/tests.html")
+        addtests_template = jinja_env.get_template("/templates/tests.html")
         self.response.write("Add test dates")
 
 class SignUpHandler(webapp2.RequestHandler):
     def get(self):
-        SignUp_template = jinja_current_directory.get_template(
+        SignUp_template = jinja_env.get_template(
             "/templates/signup.html")
         self.response.write("Sign Up Here")
 
