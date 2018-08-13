@@ -4,8 +4,8 @@ import jinja2
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
-url_logout = users.create_url_logout('/')
-url_login = users.create_url_login('/')
+logout_url = users.create_logout_url('/')
+login_url = users.create_login_url('/')
 
 jinja_env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -30,13 +30,13 @@ class LogInHandler(webapp2.RequestHandler):
         if not existing_user:
                 fields = {
                     "username": username,
-                    "url_logout": url_logout,
+                    "logout_url": logout_url,
                 }
                 self.response.write(new_user_template.render(fields))
             else:
                 self.redirect('/addcourses.html')
         else:
-            self.response.write(google_login_template.render({ }))
+            self.response.write(google_login_template.render({ login_url": login_url  }))
 
 
 class AddCoursesHandler(webapp2.RequestHandler):
