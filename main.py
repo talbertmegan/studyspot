@@ -14,27 +14,29 @@ class MainHandler(webapp2.RequestHandler):
 
 class LogInHandler(webapp2.RequestHandler):
     def get(self):
-        LogIn_template = jinji_current_directory.get_template("/templates/login.html")
+        LogIn_template = jinja_current_directory.get_template("/templates/login.html")
         self.response.write("Log In Here")
 
 class AddCoursesHandler(webapp2.RequestHandler):
     def get(self):
+        addcourses_template = jinji_current_directory.get_template("/templates/addcourses.html")
         self.respone.write("Add Courses Here")
 
 class AddTestsHandler(webapp2.RequestHandler):
     def get(self):
+        addtests_template = jinji_current_directory.get_template("/templates/mtests.html")
         self.response.write("Add test dates")
-        
-class SignupHandler(webapp2.RequestHandler):
+
+class SignUpHandler(webapp2.RequestHandler):
     def get(self):
-        Signup_template = jinja_current_directory.get_template(
+        SignUp_template = jinja_current_directory.get_template(
             "/templates/signup.html")
-        self.response.write(Signup_template.render())
+        self.response.write("Sign Up Here")
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LogInHandler),
     ('/addcourses', AddCoursesHandler),
     ('/tests', AddTestsHandler),
-    ('/signup', SignupHandler),
+    ('/signup', SignUpHandler),
         ], debug=True)
