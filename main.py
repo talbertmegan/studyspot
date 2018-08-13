@@ -11,13 +11,7 @@ jinja_env = jinja2.Environment(
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write("Welcome to Study Spot")
-<<<<<<< HEAD
-<<<<<<< HEAD
-        
-=======
-=======
 
->>>>>>> f55f8c9e490949048ea955818fdf0612516ca446
 class LogInHandler(webapp2.RequestHandler):
     def get(self):
         google_login_template = jinja_env.get_template("/templates/google_login.html")
@@ -42,13 +36,8 @@ class AddTestsHandler(webapp2.RequestHandler):
     def get(self):
         addtests_template = jinji_env.get_template("/templates/tests.html")
         self.response.write("Add test dates")
-<<<<<<< HEAD
->>>>>>> 7a550a50f9d6b72bb8fc3ce9c26d614a37f84fd8
-class SignupHandler(webapp2.RequestHandler):
-=======
 
 class SignUpHandler(webapp2.RequestHandler):
->>>>>>> f55f8c9e490949048ea955818fdf0612516ca446
     def get(self):
         SignUp_template = jinja_env.get_template(
             "/templates/signup.html")
@@ -59,13 +48,5 @@ app = webapp2.WSGIApplication([
     ('/login', LogInHandler),
     ('/addcourses', AddCoursesHandler),
     ('/tests', AddTestsHandler),
-<<<<<<< HEAD
     ('/signup', SignupHandler),
-<<<<<<< HEAD
     ], debug=True)
-=======
-=======
-    ('/signup', SignUpHandler),
->>>>>>> f55f8c9e490949048ea955818fdf0612516ca446
-        ], debug=True)
->>>>>>> 7a550a50f9d6b72bb8fc3ce9c26d614a37f84fd8
