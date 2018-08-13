@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends "templates/layout.html" %}
+{% block body %}
 
-  </body>
-</html>
+<div id="welcome_text">
+    <h1 id="welcome">Welcome {{ username }}! <br> Please sign in!</h1>
+    <a id="signout_button" href="{{ logout_url }}"><span>Sign Out</span></a>
+    <form method="post" action="/feed">
+        <input class="input_text" type="text" name="name" enter_input="Enter your full name">
+        <input class="input_text" type="text" name="username" enter_input="Enter a username">
+        <button id="submit_button" type="Submit"><span>Submit</span></button>
+    </form>
+</div>
+
+{% endblock %}
