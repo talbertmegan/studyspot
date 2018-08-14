@@ -4,6 +4,7 @@ import jinja2
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from database import seed_data
+from users import Post, User
 
 logout_url = users.create_logout_url('/')
 login_url = users.create_login_url('/')
