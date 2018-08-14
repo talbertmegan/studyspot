@@ -7,4 +7,4 @@ def filterEvents(course_names, events):
         for event in events:
             if course in event.summary:
                 userEvents.append(event)
-    return userEvents
+    return user_events
