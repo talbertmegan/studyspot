@@ -11,7 +11,7 @@
   <body>
     <header>Study Spot</header>
 
-
+<!--Console for users to post-->
     <section id="console">
       <div id="user_info">
         <h2 class="user_info_content" id="user_name">Name: {{ user_name }}</h2>
@@ -28,7 +28,7 @@
       </div>
     </section>
 
-
+<!--Chat for users--> 
     <section id="chat">
       {% for post in posts %}
           <div class="textpost">
@@ -40,7 +40,7 @@
           </div>
       {% endfor %}
     </section>
-
+<!--Calendars for users-->
     <section id=calendar><iframe src="https://calendar.google.com/calendar/embed?src=lion.lmu.edu_dujtesotucnv77fj726mtnnobc%40group.calendar.google.com&ctz=America%2FLos_Angeles" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>{%filterEvents%}</section>
     <footer>Study Spot, your online spot for finding study groups</footer>
   </body>
