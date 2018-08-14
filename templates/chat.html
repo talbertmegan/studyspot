@@ -10,8 +10,37 @@
   </head>
   <body>
     <header>Study Spot</header>
-    <section id=menu>Class list here</section>
-    <section id=chat>Chat goes here</section>
+
+
+    <section id="console">
+      <div id="user_info">
+        <h2 class="user_info_content" id="user_name">Name: {{ user_name }}</h2>
+        <h2 class="user_info_content" id="username">Username: {{ username }}</h2>
+        <p class="user_info_content">Number of Posts: {{ post_count }} </p>
+        <a class="user_info_content" href="{{sign_out}}">Sign out</a>
+      </div>
+      <div id="post">
+        <form method="post">
+          <h2 class="user_info_content"> Post </h2>
+          <textarea name="user_post" rows="5" cols="30" value=""></textarea>
+          <input id="submit_post_btn" type="submit" value="Submit">
+        </form>
+      </div>
+    </section>
+
+
+    <section id="chat">
+      {% for post in posts %}
+          <div class="textpost">
+            <p>
+              <span id="post_author">{{ post[0] }} says...</span> <br>
+              {{ post[1] }}
+            </p>
+            <span id="post_time">{{ post[2] }}</span>
+          </div>
+      {% endfor %}
+    </section>
+
     <section id=calendar><iframe src="https://calendar.google.com/calendar/embed?src=lion.lmu.edu_dujtesotucnv77fj726mtnnobc%40group.calendar.google.com&ctz=America%2FLos_Angeles" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>{%filterEvents%}</section>
     <footer>Study Spot, your online spot for finding study groups</footer>
   </body>

@@ -5,9 +5,8 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from database import seed_data
 from users import Post, User
+from content_manager import populate_feed, logout_url, login_url
 
-logout_url = users.create_logout_url('/')
-login_url = users.create_login_url('/')
 
 jinja_env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -68,7 +67,7 @@ class ChatHandler(webapp2.RequestHandler):
             return
         current_user = User.query().filter(User.email == user.email()).get()
         chat_fields = populate_feed(current_user)
-        start_chat = jinja_current_directory.get_template("templates/chat.html")
+        start_chat = jinja_env.get_template("templates/chat.html")
         self.response.write(start_chat.render(chat_fields))
 
     def post(self):
@@ -90,8 +89,6 @@ class ChatHandler(webapp2.RequestHandler):
             new_post = Post(author= current_user.key, content= self.request.get("user_post"))
             new_post.put()
         self.redirect('/chat')
-
-
 
 class ViewCourseHandler(webapp2.RequestHandler):
     def get(self):
