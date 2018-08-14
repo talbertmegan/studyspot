@@ -29,6 +29,11 @@ footer{
    background-color: red;
    text-align: center;
  }
+
+ a{
+   color: White;
+ }
+
 #menu{
    grid-column: 1 / span 1;
    grid-row:2;
