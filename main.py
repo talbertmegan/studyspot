@@ -3,6 +3,7 @@ import os
 import jinja2
 from google.appengine.api import users
 from google.appengine.ext import ndb
+from database import seed_data
 
 logout_url = users.create_logout_url('/')
 login_url = users.create_login_url('/')
@@ -26,11 +27,11 @@ class LogInHandler(webapp2.RequestHandler):
 
         if user:
             existing_user = User.query().filter(User.email == user.email()).get()
-            username = user.username()
+            nickname = user.nickname()
             if not existing_user:
                 fields = {
-                    "username": username,
-                    "logout_url": logout_url,
+                  "nickname": nickname,
+                  "logout_url": logout_url,
                 }
                 self.response.write(new_user_template.render(fields))
             else:
@@ -69,6 +70,11 @@ class ViewCourseHandler(webapp2.RequestHandler):
         fields = {"names": User.query().filter(User.email == user.email()).get()}
         self.response.write(template.render(fields))
 
+class LoadDataHandler(webapp2.RequestHandler):
+    def get(self):
+        seed_data()
+        self.response.write("Seed data added")
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LogInHandler),
@@ -77,4 +83,5 @@ app = webapp2.WSGIApplication([
     ('/signup', SignUpHandler),
     ('/chat', ChatHandler),
     ('/viewcourses', ViewCourseHandler),
+    ('/seed-data', LoadDataHandler),
     ], debug=True)

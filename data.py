@@ -9,3 +9,10 @@ class Post(ndb.Model):
     author = ndb.KeyProperty(User, required=True)
     content = ndb.StringProperty(required=True)
     time = ndb.DateTimeProperty(auto_now_add=True)
+
+class Course(ndb.Model):
+    name = ndb.StringProperty()
+
+class Teacher(ndb.Model):
+    name = ndb.StringProperty(required=True)
+    classes_taught = ndb.KeyProperty(Course, repeated=True)
