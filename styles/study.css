@@ -1,37 +1,47 @@
 body {
-    display: grid;
-    height: 100vh;
-    grid-template-rows: 100px auto 50px;
-    grid-template-columns: 200px auto 400px;
+  margin: 0;
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 190px auto 70px;
+  grid-template-columns: 200px auto 400px;
 }
 header{
-   grid-column: 1 / span 3;
-   grid-row: 1;
-   text-align: center;
-   color: white;
-   text-shadow: 2px 2px 4px blue;
-   background-color: red;
-   font-size: 80px;
+  padding: 3%;
+  grid-column: 1 / span 3;
+  grid-row: 1;
+  text-align: center;
+  color: rgb(115,20,29);
+  text-shadow: 4px 3px 1px rgb(10,37,100);
+  background-color: white;
+  font-size: 650%;
+  font-family: 'Cabin Sketch', cursive;
+  border-bottom: 8px solid navy;
  }
 section{
    padding: 10px 10px 10px 10px;
  }
 nav{
-   grid-column: 1 / span 2;
+   grid-column: 1 / span 3;
    grid-row: 2;
-   background-color: blue;
+   background-color: white;
    text-align: center;
    padding-top: 100px;
  }
 footer{
-   grid-column: 1 / span 3;
-   grid-row: 3;
-   background-color: red;
-   text-align: center;
+  grid-column: 1 / span 3;
+  grid-row: 3;
+  background-color: rgb(115,20,29);
+  text-align: center;
+  color: white;
  }
 
  a{
-   color: White;
+   color: black;
+ }
+
+ #logInButton{
+   margin-top: 15%;
+   font-size: 300%;
  }
 
 #menu{
