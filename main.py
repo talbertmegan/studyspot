@@ -6,6 +6,7 @@ from google.appengine.ext import ndb
 from database import seed_data
 from users import Post, User
 from content_manager import populate_feed, logout_url, login_url
+from data import Course, Teacher, User
 
 
 jinja_env = jinja2.Environment(
@@ -46,6 +47,12 @@ class AddCoursesHandler(webapp2.RequestHandler):
         self.response.write(addcourses_template.render())
     def post(self):
         self.response.write("This is where I will add the course")
+
+class TeacherHandler(webapp2.RequestHandler):
+    def get(self):
+        teachers = Teacher.query().order(Teacher.name).fetch()
+        template = jinja_env.get_template("templates/addcourses.html")
+        self.response.write(template.render({'teacher_info' : teachers}))
 
 class AddTestsHandler(webapp2.RequestHandler):
     def get(self):
@@ -110,4 +117,5 @@ app = webapp2.WSGIApplication([
     ('/chat', ChatHandler),
     ('/viewcourses', ViewCourseHandler),
     ('/seed-data', LoadDataHandler),
+    ('/teachers', TeacherHandler),
     ], debug=True)
