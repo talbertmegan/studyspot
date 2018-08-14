@@ -1,4 +1,4 @@
-from data import Course, Teacher, Users
+from data import Course, Teacher, User
 
 def seed_data():
 

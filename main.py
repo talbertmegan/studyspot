@@ -65,6 +65,8 @@ class ChatHandler(webapp2.RequestHandler):
             "/templates/chat.html")
         self.response.write(chatTemplate.render())
 
+
+
 class ViewCourseHandler(webapp2.RequestHandler):
     def get(self):
         userdata_template = jinja_env.get_template("/templates/userdata.html")
