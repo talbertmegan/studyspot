@@ -27,11 +27,11 @@ class LogInHandler(webapp2.RequestHandler):
 
         if user:
             existing_user = User.query().filter(User.email == user.email()).get()
-            username = user.username()
+            nickname = user.nickname()
             if not existing_user:
                 fields = {
-                    "username": username,
-                    "logout_url": logout_url,
+                  "nickname": nickname,
+                  "logout_url": logout_url,
                 }
                 self.response.write(new_user_template.render(fields))
             else:
