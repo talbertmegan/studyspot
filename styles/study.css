@@ -18,14 +18,14 @@ header{
   border-bottom: 8px solid navy;
  }
 section{
-   padding: 10px 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
  }
 nav{
-   grid-column: 1 / span 3;
-   grid-row: 2;
-   background-color: white;
-   text-align: center;
-   padding-top: 100px;
+  grid-column: 1 / span 3;
+  grid-row: 2;
+  background-color: white;
+  text-align: center;
+  padding-top: 100px;
  }
 footer{
   grid-column: 1 / span 3;
@@ -38,35 +38,17 @@ footer{
  }
 
  a{
-   color: black;
-   text-decoration: none;
-   font-size: 400%;
-   padding: 2px 6px 2px 6px;
-   border-top: 7px solid navy;
-   border-right: 7px solid navy;
-   border-bottom: 7px solid navy;
-   border-left: 7px solid navy;
+  color: black;
+  text-decoration: none;
+  font-size: 400%;
+  padding: 2px 6px 2px 6px;
+  border-top: 7px solid navy;
+  border-right: 7px solid navy;
+  border-bottom: 7px solid navy;
+  border-left: 7px solid navy;
  }
 
  #logInButton{
-   margin-top: 15%;
-   font-size: 300%;
+  margin-top: 15%;
+  font-size: 300%;
  }
-
-#menu{
-   grid-column: 1 / span 1;
-   grid-row:2;
-   background-color: gray;
-
- }
-#chat{
-  grid-column: 2 / span 1;
-  grid-row:2;
-  background-color: white;
-  color: blue;
-}
-#calendar{
-  grid-column: 3 / span 1;
-  grid-row: 2;
-  background-color: gray;
-}
