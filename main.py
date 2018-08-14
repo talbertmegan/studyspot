@@ -61,9 +61,35 @@ class SignUpHandler(webapp2.RequestHandler):
 
 class ChatHandler(webapp2.RequestHandler):
     def get(self):
-        chatTemplate = jinja_env.get_template(
-            "/templates/chat.html")
-        self.response.write(chatTemplate.render())
+        user = users.get_current_user()
+        print("*********" + str(user) + "***********")
+        if user is None:
+            self.redirect('/')
+            return
+        current_user = User.query().filter(User.email == user.email()).get()
+        chat_fields = populate_feed(current_user)
+        start_chat = jinja_current_directory.get_template("templates/chat.html")
+        self.response.write(start_chat.render(chat_fields))
+
+    def post(self):
+        user = users.get_current_user()
+        if user is None:
+            self.redirect('/')
+            return
+        current_user = User.query().filter(User.email == user.email()).get()
+        if not current_user:
+            new_user_entry = User(
+                name = self.request.get("name"),
+                username = self.request.get("username"),
+                email = user.email(),
+            )
+            new_user_entry.put()
+            current_user = new_user_entry
+        else:
+            # if not a new user, existing user submitted a post from feed
+            new_post = Post(author= current_user.key, content= self.request.get("user_post"))
+            new_post.put()
+        self.redirect('/chat')
 
 
 

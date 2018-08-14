@@ -7,7 +7,7 @@ class User(ndb.Model):
 
 class Post(ndb.Model):
     author = ndb.KeyProperty(User, required=True)
-    board = ndb.KeyProperty(boardKey, required=True)
+    board = ndb.StringProperty(required=True)
     content = ndb.StringProperty(required=True)
     time = ndb.DateTimeProperty(auto_now_add=True)
 
