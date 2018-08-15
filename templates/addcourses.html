@@ -7,15 +7,14 @@
   <body>
     <h1>Courses</h1>
   <p>Add a course:</p>
-    <form method="post" action="/addcourses">
+    <form method="get" action="/chat">
       <select id="course" name="course">
         <!-- <option>English</option>
         <option>Math</option>
         <option>Science</option>
         <option>Social Studies</option> -->
       </select>
-      <input type="submit">
-    </form>
+
 
     <h1>Teachers</h1>
   <p>Add a teacher:</p>
@@ -23,7 +22,7 @@
     1. Get the teachers based off the Course
     2. When you get teachers, populate form with teachers
   -->
-    <form method="post" action="/addcourses">
+
       <select id="teacher" name="teacher">
         <!--for loop -->
       {% for Teacher in teacher_info %}

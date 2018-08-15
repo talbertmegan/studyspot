@@ -21,6 +21,22 @@ jinja_env = jinja2.Environment(
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         template= jinja_env.get_template("/templates/home.html")
+
+        user = users.get_current_user()
+        nickname = None
+        if user:
+            nickname = user.nickname()
+            auth_url = users.create_logout_url('/')
+        else:
+            auth_url = users.create_login_url('/')
+            
+        self.response.write(template.render({
+            "nickname": nickname,
+            "auth_url": auth_url,
+            "auth_text": "Sign out" if user else "Sign in",
+        }))
+
+
         self.response.write(template.render())
 
 class LogInHandler(webapp2.RequestHandler):
@@ -31,6 +47,11 @@ class LogInHandler(webapp2.RequestHandler):
         user = users.get_current_user()
 
         if user:
+            print("ACCOUNT EXISTS:")
+            print(user.email())
+            print(user.nickname())
+
+
             existing_user = User.query().filter(User.email == user.email()).get()
             nickname = user.nickname()
             if not existing_user:
@@ -39,10 +60,11 @@ class LogInHandler(webapp2.RequestHandler):
                   "logout_url": logout_url,
                 }
                 self.response.write(new_user_template.render(fields))
-            else:
-                self.redirect('/layout.html')
+            # else:
+            #     self.redirect('/layout.html')
         else:
             self.response.write(google_login_template.render({ "login_url": login_url  }))
+
 
 
 class AddCoursesHandler(webapp2.RequestHandler):
@@ -51,11 +73,19 @@ class AddCoursesHandler(webapp2.RequestHandler):
         self.response.write(addcourses_template.render())
 
     def post(self):
+
+        # Get the current Google account user
         user = users.get_current_user()
+
+        # If the user doesn't exist, go home
         if user is None:
             self.redirect('/')
             return
+
+        # Fetch the user from the data store
         current_user = User.query().filter(User.email == user.email()).get()
+
+        # If the user doesn't exist in the data store, create and put the new user
         if not current_user:
             new_user_entry = User(
                 name = self.request.get("name"),
@@ -65,12 +95,9 @@ class AddCoursesHandler(webapp2.RequestHandler):
             new_user_entry.put()
             current_user = new_user_entry
 
-        time.sleep(.2)
-        self.redirect('/chat?course=' + self.request.get("course"))
+            time.sleep(.2)
 
-
-    def post(self):
-        self.response.write("This is where I will add the course")
+        self.redirect('/addcourses')
 
 
 class AddTestsHandler(webapp2.RequestHandler):

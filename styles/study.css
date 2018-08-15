@@ -41,7 +41,13 @@ footer{
   font-size: 100%;
  }
 
- a{
+ a#auth {
+  color: black;
+  text-decoration: none;
+
+ }
+
+ a#login {
   color: black;
   text-decoration: none;
   font-size: 400%;
@@ -51,6 +57,8 @@ footer{
   border-bottom: 7px solid navy;
   border-left: 7px solid navy;
  }
+
+
  #signout_button{
    font-size: 100%;
    margin-top: 400px;
