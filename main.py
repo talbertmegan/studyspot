@@ -120,15 +120,13 @@ class CourseService(webapp2.RequestHandler):
 
   def get(self):
     key = self.getKey(self.request);
-    ancestor_key = ndb.Key('Courses', key)
-    courses = Course.query_courses(ancestor_key).fetch()
-    # courses = Course.query().order(Course.name).fetch()
-    print(courses)
-    # template = jinja_env.get_template("templates/addcourses.html")
-    # self.response.write(template.render({'course_info' : courses}))
+    course_key = ndb.Key('Courses', key)
+    courses = Course.query().order(Course.name).fetch()
+    # print(courses)
+    results = json.dumps([c.to_dict() for c in courses], default=str)
+
     self.response.headers['Content-Type'] = 'application/json'
-    self.response.write(
-        json.dumps([self.to_serializable(m) for m in courses]))
+    self.response.write(results)
 
   # def get(self):
     # key = self.getKey(self.request);
