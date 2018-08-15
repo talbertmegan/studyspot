@@ -16,6 +16,7 @@ header{
   font-size: 650%;
   font-family: 'Cabin Sketch', cursive;
   border-bottom: 8px solid navy;
+  position: relative;
  }
 section{
   padding: 10px 10px 10px 10px;
@@ -26,6 +27,9 @@ nav{
   background-color: white;
   text-align: center;
   padding-top: 100px;
+ }
+ nav#signinpage{
+   padding-top: 50px;
  }
 footer{
   grid-column: 1 / span 3;
@@ -47,14 +51,15 @@ footer{
   border-bottom: 7px solid navy;
   border-left: 7px solid navy;
  }
+ #signout_button{
+   font-size: 100%;
+   margin-top: 400px;
+ }
+
  #logInButton{
   margin-top: 15%;
   font-size: 300%;
  }
  #welcome_text{
-   font-size: 100%;
- }
-
- #signout_button{
    font-size: 100%;
  }
