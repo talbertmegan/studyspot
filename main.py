@@ -1,6 +1,7 @@
 import webapp2
 import os
 import jinja2
+import time
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from database import seed_data
@@ -36,7 +37,7 @@ class LogInHandler(webapp2.RequestHandler):
                 }
                 self.response.write(new_user_template.render(fields))
             else:
-                self.redirect('/addcourses.html')
+                self.redirect('/google_login.html')
         else:
             self.response.write(google_login_template.render({ "login_url": login_url  }))
 
@@ -45,8 +46,28 @@ class AddCoursesHandler(webapp2.RequestHandler):
     def get(self):
         addcourses_template = jinja_env.get_template("/templates/addcourses.html")
         self.response.write(addcourses_template.render())
+
     def post(self):
-        self.response.write("This is where I will add the course")
+        user = users.get_current_user()
+        if user is None:
+            self.redirect('/')
+            return
+        current_user = User.query().filter(User.email == user.email()).get()
+        if not current_user:
+            new_user_entry = User(
+                name = self.request.get("name"),
+                username = self.request.get("username"),
+                email = user.email(),
+            )
+            new_user_entry.put()
+            current_user = new_user_entry
+        else:
+            # if not a new user, existing user submitted a post from feed
+            new_post = Post(author= current_user.key, content= self.request.get("user_post"))
+            new_post.put()
+        time.sleep(.2)
+        self.redirect('/addcourses')
+
 
 class TeacherHandler(webapp2.RequestHandler):
     def get(self):
@@ -68,7 +89,6 @@ class SignUpHandler(webapp2.RequestHandler):
 class ChatHandler(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
-        print("*********" + str(user) + "***********")
         if user is None:
             self.redirect('/')
             return
@@ -83,25 +103,18 @@ class ChatHandler(webapp2.RequestHandler):
             self.redirect('/')
             return
         current_user = User.query().filter(User.email == user.email()).get()
-        if not current_user:
-            new_user_entry = User(
-                name = self.request.get("name"),
-                username = self.request.get("username"),
-                email = user.email(),
-            )
-            new_user_entry.put()
-            current_user = new_user_entry
-        else:
-            # if not a new user, existing user submitted a post from feed
-            new_post = Post(author= current_user.key, content= self.request.get("user_post"))
-            new_post.put()
+        new_post = Post(author= current_user.key, content= self.request.get("user_post"))
+        new_post.put()
+        time.sleep(.2)
         self.redirect('/chat')
+
 
 class ViewCourseHandler(webapp2.RequestHandler):
     def get(self):
         userdata_template = jinja_env.get_template("/templates/userdata.html")
         fields = {"names": User.query().filter(User.email == user.email()).get()}
         self.response.write(template.render(fields))
+
 
 class LoadDataHandler(webapp2.RequestHandler):
     def get(self):
