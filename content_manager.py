@@ -2,6 +2,8 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from data import Post, User
 from datetime import datetime
+# from calendarDisplay import filterEvents
+
 
 logout_url = users.create_logout_url('/')
 login_url = users.create_login_url('/')
@@ -19,5 +21,6 @@ def populate_feed(current_user):
         "user_count": len(User.query().fetch()),
         "posts": format_posts(Post.query().order(-Post.time).fetch(limit=30)),
         "users": User.query().order(User.username).fetch(),
+        # "events": filterEvents(course_names, events)
     }
     return chat_fields
