@@ -47,8 +47,14 @@ footer{
   border-bottom: 7px solid navy;
   border-left: 7px solid navy;
  }
-
  #logInButton{
   margin-top: 15%;
   font-size: 300%;
+ }
+ #welcome_text{
+   font-size: 100%;
+ }
+
+ #signout_button{
+   font-size: 100%;
  }

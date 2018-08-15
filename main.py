@@ -38,7 +38,7 @@ class LogInHandler(webapp2.RequestHandler):
                 }
                 self.response.write(new_user_template.render(fields))
             else:
-                self.redirect('/google_login.html')
+                self.redirect('/layout.html')
         else:
             self.response.write(google_login_template.render({ "login_url": login_url  }))
 
@@ -62,7 +62,7 @@ class AddCoursesHandler(webapp2.RequestHandler):
             )
             new_user_entry.put()
             current_user = new_user_entry
-    
+
         time.sleep(.2)
         self.redirect('/chat?course=' + self.request.get("course"))
 
