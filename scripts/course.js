@@ -1,7 +1,25 @@
+
+var courses = {};
+
 document.addEventListener("DOMContentLoaded", function(event) {
   refreshMessages();
-  // document.querySelector('#course').addEventListener('onchange', sendMessageClicked);
+  document.querySelector('#course').addEventListener('change', courseChanged);
 });
+
+function courseChanged() {
+  const courseSelect = document.querySelector('#course');
+  const selectedOption = courseSelect.options[courseSelect.selectedIndex].text;
+  console.log(selectedOption);
+  console.log(courses);
+  course = courses[courseSelect.selectedIndex];
+  console.log(course);
+
+  teachers = course.teachers;
+  console.log(teachers);
+
+
+
+}
 
 function sendMessageClicked() {
   postMessage().then(function() {
@@ -29,6 +47,7 @@ function refreshMessages() {
       })
       .then(function(messages) {
         console.log(messages);
+        courses = messages;
         const courses_select = document.querySelector('#course');
         courses_select.innerHTML = '';
         messages.forEach(function(message) {
