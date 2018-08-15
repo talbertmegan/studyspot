@@ -2,10 +2,17 @@
 var courses = {};
 
 document.addEventListener("DOMContentLoaded", function(event) {
+
+  console.log("HELLO");
+
   refreshMessages().then(function() {
+    console.log("HELLO2");
+
     courseChanged();
     document.querySelector('#course').addEventListener('change', courseChanged);
 
+  }).catch(function(e) {
+    console.log(e);
   })
 });
 
@@ -54,6 +61,11 @@ function postMessage() {
 function refreshMessages() {
   return fetch('./course')
       .then(function(response) {
+
+        // console.log(response.json());
+        console.log(response);
+        // console.warn("HELLO");
+
         return response.json();
       })
       .then(function(messages) {

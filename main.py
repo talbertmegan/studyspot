@@ -18,23 +18,32 @@ jinja_env = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+def get_auth():
+    user = users.get_current_user()
+    nickname = None
+    if user:
+        nickname = user.nickname()
+        auth_url = users.create_logout_url('/')
+    else:
+        auth_url = users.create_login_url('/addcourses')
+    return {
+        "nickname": nickname,
+        "auth_url": auth_url,
+        "auth_text": "Sign out" if user else "Sign in"}
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         template= jinja_env.get_template("/templates/home.html")
 
-        user = users.get_current_user()
-        nickname = None
-        if user:
-            nickname = user.nickname()
-            auth_url = users.create_logout_url('/')
-        else:
-            auth_url = users.create_login_url('/')
+        # user = users.get_current_user()
+        # nickname = None
+        # if user:
+        #     nickname = user.nickname()
+        #     auth_url = users.create_logout_url('/')
+        # else:
+        #     auth_url = users.create_login_url('/')
 
-        self.response.write(template.render({
-            "nickname": nickname,
-            "auth_url": auth_url,
-            "auth_text": "Sign out" if user else "Sign in",
-        }))
+        self.response.write(template.render(get_auth()))
 
 
         # self.response.write(template.render())
@@ -69,8 +78,12 @@ class LogInHandler(webapp2.RequestHandler):
 
 class AddCoursesHandler(webapp2.RequestHandler):
     def get(self):
-        addcourses_template = jinja_env.get_template("/templates/addcourses.html")
-        self.response.write(addcourses_template.render())
+        template = jinja_env.get_template("/templates/addcourses.html")
+
+        auth_dict = get_auth()
+
+
+        self.response.write(template.render(auth_dict))
 
     def post(self):
 
@@ -174,6 +187,7 @@ class CourseService(webapp2.RequestHandler):
             results.append(result)
 
         self.response.headers['Content-Type'] = 'application/json'
+        print(json.dumps(results))
         self.response.write(json.dumps(results))
 
     def post(self):

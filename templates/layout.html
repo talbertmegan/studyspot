@@ -9,7 +9,18 @@
     <link rel="icon" href="/media/studyFavicon.png">
   </head>
   <body>
+
+    <div>
+      {% if nickname %}
+        {{ nickname }} •
+      {% endif %}
+      <a id="auth" href="{{ auth_url }}">{{ auth_text }}</a>
+    </div>
+
     <header id="title">Study Spot</header>
+
+
+
     {% block body %}{% endblock %}
   </body>
 </html>
