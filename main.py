@@ -40,7 +40,7 @@ class LogInHandler(webapp2.RequestHandler):
                 }
                 self.response.write(new_user_template.render(fields))
             else:
-                self.redirect('/google_login.html')
+                self.redirect('/layout.html')
         else:
             self.response.write(google_login_template.render({ "login_url": login_url  }))
 

@@ -1,6 +1,5 @@
 // Client ID and API key from the Developer Console
 var CLIENT_ID = '10344468670-mk40cmrge87j6i67p9ajl6jghcdcerkg.apps.googleusercontent.com';
-var API_KEY = 'AIzaSyBgsHWJsLyx0VLXnnKeIbGYU0PkxMXB7Bk';
 
 // Array of API discovery doc URLs for APIs used by the quickstart
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
@@ -80,13 +79,19 @@ function appendPre(message) {
   var textContent = document.createTextNode(message + '\n');
   pre.appendChild(textContent);
 }
+
 function filterEvents(eventTitle, when, course_list){
-  for items in course_list{
-    if eventTitle.includes(str(item)){
-      return eventTitle + ' (' + when + ')';
-    }
+  // course_list.forEach(item => {
+  //   // if (eventTitle.includes(`${item}`)) {
+  //   //   return eventTitle + ' (' + when + ')';
+  //
+  //   }
+  let filteredTitle = eventTitle.toLowerCase().split(" ");
+  if (course_list.includes(filteredTitle[0])) {
+    return eventTitle + ' (' + when + ')';
   }
 }
+
 /**
  * Print the summary and start datetime/date of the next ten events in
  * the authorized user's calendar. If no events are found an
@@ -98,11 +103,12 @@ function listUpcomingEvents() {
     'timeMin': (new Date()).toISOString(),
     'showDeleted': false,
     'singleEvents': true,
-    'maxResults': 10,
+    'maxResults': 30,
     'orderBy': 'startTime'
   }).then(function(response) {
     var events = response.result.items;
     appendPre('Upcoming events:');
+    appendPre('\n');
 
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
@@ -111,8 +117,13 @@ function listUpcomingEvents() {
         if (!when) {
           when = event.start.date;
         }
-
-        appendPre(filterEvents(event.summary, when, ))
+        // appendPre("almost to the filter step")
+        let filteredEvent = filterEvents(event.summary, when, ['test', 'exam', 'science']);
+        if (filteredEvent) {
+          appendPre(filteredEvent);
+          appendPre('\n');
+        }
+        // appendPre("passed the filter step")
       }
     } else {
       appendPre('No upcoming events found.');
