@@ -2,7 +2,7 @@ body {
   margin: 0;
   display: grid;
   height: 100vh;
-  grid-template-rows: 170px auto 70px;
+  grid-template-rows: 170px auto 170px 70px;
   grid-template-columns: 215px auto 400px;
 }
 header{
@@ -16,31 +16,35 @@ header{
   font-size: 650%;
   font-family: 'Cabin Sketch', cursive;
   border-bottom: 8px solid navy;
- }
- footer{
-   grid-column: 1 / span 3;
-   grid-row: 3;
-   background-color: rgb(115,20,29);
-   text-align: center;
-   color: white;
-   padding-top: 2%;
-   font-size: 100%;
-   border-top: 8px solid navy;
-  }
+}
+footer{
+  grid-column: 1 / span 3;
+  grid-row: 4 / span 1;
+  background-color: rgb(115,20,29);
+  text-align: center;
+  color: white;
+  padding-top: 2%;
+  font-size: 100%;
+
+}
 #console{
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 2;
   padding: 4%;
   border-right: 8px solid navy;
   border-left: 8px solid navy;
 }
 #menu{
   grid-column: 1 / span 1;
-  grid-row:2;
+  grid-row: 2 / span 2;
   background-color: gray;
+  border-right: 8px solid navy;
+  border-left: 8px solid navy;
  }
 #chat{
   margin: 0;
   grid-column: 2 / span 1;
-  grid-row:2;
+  grid-row:2 / span 2;
   background-color: white;
   color: blue;
   font-size: 110%;
@@ -51,6 +55,15 @@ header{
   background-color: gray;
   border-right: 8px solid navy;
   border-left: 8px solid navy;
+    border-bottom: 8px solid navy;
+}
+#users{
+  grid-column: 3 / span 1;
+  grid-row: 3 / span 1;
+  background-color: blue;
+  border-right: 8px solid navy;
+  border-left: 8px solid navy;
+
 }
 #sign_out{
   text-decoration: none;
@@ -76,4 +89,12 @@ header{
 #post_time{
   font-size: 70%;
 
+}
+#text_box{
+  width: 180px;
+}
+#signout_button{
+  opacity: 0;
+  height: 1px;
+  width: 1px;
 }
