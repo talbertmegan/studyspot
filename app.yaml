@@ -7,8 +7,6 @@ handlers:
   static_dir: media
 - url: /styles
   static_dir: styles
-- url: /temp_scripts
-  static_dir: temp_scripts
 - url: /scripts
   static_dir: scripts
 - url: /.*
