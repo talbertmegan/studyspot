@@ -1,27 +1,57 @@
+body {
+  margin: 0;
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 170px auto 70px;
+  grid-template-columns: 215px auto 400px;
+}
+header{
+  padding: 2%;
+  grid-column: 1 / span 3;
+  grid-row: 1;
+  text-align: center;
+  color: rgb(115,20,29);
+  text-shadow: 4px 3px 1px rgb(10,37,100);
+  background-color: white;
+  font-size: 650%;
+  font-family: 'Cabin Sketch', cursive;
+  border-bottom: 8px solid navy;
+ }
+ footer{
+   grid-column: 1 / span 3;
+   grid-row: 3;
+   background-color: rgb(115,20,29);
+   text-align: center;
+   color: white;
+   padding-top: 2%;
+   font-size: 100%;
+  }
+#console{
+  padding: 4%;
+  border-right: 8px solid navy;
+}
 #menu{
   grid-column: 1 / span 1;
   grid-row:2;
   background-color: gray;
  }
-
 #chat{
   grid-column: 2 / span 1;
   grid-row:2;
   background-color: white;
   color: blue;
+  padding-left: 4%;
+  font-size: 110%;
 }
-
 #calendar{
   grid-column: 3 / span 1;
   grid-row: 2;
   background-color: gray;
 }
-
 #sign_out{
   font-size: 100%;
   border-top: 3px solid navy;
   border-right: 3px solid navy;
   border-bottom: 3px solid navy;
   border-left: 3px solid navy;
-
 }
