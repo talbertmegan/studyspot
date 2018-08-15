@@ -2,8 +2,11 @@
 var courses = {};
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  refreshMessages();
-  document.querySelector('#course').addEventListener('change', courseChanged);
+  refreshMessages().then(function() {
+    courseChanged();
+    document.querySelector('#course').addEventListener('change', courseChanged);
+
+  })
 });
 
 function courseChanged() {
@@ -17,6 +20,14 @@ function courseChanged() {
   teachers = course.teachers;
   console.log(teachers);
 
+  const teachers_select = document.querySelector('#teacher');
+
+  teachers_select.innerHTML = '';
+  teachers.forEach(function(teacher) {
+    const option = document.createElement('option');
+    option.text = teacher.teacher_name;
+    teachers_select.append(option);
+  });
 
 
 }
@@ -41,7 +52,7 @@ function postMessage() {
 
 
 function refreshMessages() {
-  fetch('./course')
+  return fetch('./course')
       .then(function(response) {
         return response.json();
       })
@@ -52,7 +63,8 @@ function refreshMessages() {
         courses_select.innerHTML = '';
         messages.forEach(function(message) {
           const option = document.createElement('option');
-          option.text = message.name;
+          console.log(message)
+          option.text = message.course_name;
 
           courses_select.append(option);
         });
