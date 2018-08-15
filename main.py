@@ -130,8 +130,17 @@ class ChatHandler(webapp2.RequestHandler):
         if user is None:
             self.redirect('/')
             return
+
+        print("user.email(): " + user.email())
+        # Get current user from data store
         current_user = User.query().filter(User.email == user.email()).get()
-        chat_fields = populate_feed(current_user, self.request.get("course"))
+
+        if current_user is None:
+            self.redirect('/')
+            return
+        print(current_user);
+
+        chat_fields = populate_feed(current_user, self.request.get("course") +" "+ self.request.get("teacher"))
         start_chat = jinja_env.get_template("templates/chat.html")
         self.response.write(start_chat.render(chat_fields))
 
@@ -142,10 +151,10 @@ class ChatHandler(webapp2.RequestHandler):
             return
         current_user = User.query().filter(User.email == user.email()).get()
         print(self.request.get("course"))
-        new_post = Post(author= current_user.key, board=self.request.get("course"), content= self.request.get("user_post"))
+        new_post = Post(author= current_user.key, board=self.request.get("course")+" "+self.request.get("teacher"), content= self.request.get("user_post"))
         new_post.put()
         time.sleep(.2)
-        self.redirect('/chat?course=' + self.request.get("course"))
+        self.redirect('/chat?course=' + self.request.get("course")+"&teacher="+self.request.get("teacher"))
 
 class ViewCourseHandler(webapp2.RequestHandler):
     def get(self):
