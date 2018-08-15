@@ -128,8 +128,40 @@ class LoadDataHandler(webapp2.RequestHandler):
 
 class CourseService(webapp2.RequestHandler):
   def get(self):
-    template = jinja_env.get_template('test.html')
-    self.response.write(template.render())
+    key = self.getKey(self.request);
+    course_key = ndb.Key('Courses', key)
+    course = Course.query_conversation(course_key).fetch()
+    self.response.headers['Content-Type'] = 'application/json'
+    self.response.write(
+        json.dumps([self.to_serializable(m) for m in course]))
+
+  def post(self):
+    key = self.getKey(self.request);
+    content = self.request.get('content');
+    course = Course(parent=ndb.Key("Courses", key), content=content)
+    course.put()
+
+  def getKey(self, request):
+    from_user = self.request.get('from');
+    to_user = self.request.get('to');
+    key_values = [from_user, to_user]
+    key_values.sort()
+    return key_values[0] + '_' + key_values[1];
+
+  def to_serializable(self, data):
+    """Build a new dict so that the data can be JSON serializable"""
+    result = data.to_dict()
+    record = {}
+    # Populate the new dict with JSON serializiable values
+    for key in result.iterkeys():
+      if isinstance(result[key], datetime.datetime):
+        record[key] = result[key].isoformat()
+        continue
+      record[key] = result[key]
+    # Add the key so that we have a reference to the record
+    record['key'] = data.key.id()
+    return record
+
 
 
 

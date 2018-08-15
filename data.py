@@ -18,4 +18,4 @@ class Teacher(ndb.Model):
 
 class Course(ndb.Model):
     name = ndb.StringProperty(required=True)
-    teacher = ndb.KeyProperty(Teacher,repeated=True)
+    teachers = ndb.KeyProperty(Teacher,repeated=True)
