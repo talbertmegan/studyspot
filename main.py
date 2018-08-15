@@ -19,13 +19,15 @@ jinja_env = jinja2.Environment(
     autoescape=True)
 
 def get_auth():
+
+    # Get the Google user
     user = users.get_current_user()
     nickname = None
     if user:
         nickname = user.nickname()
         auth_url = users.create_logout_url('/')
     else:
-        auth_url = users.create_login_url('/addcourses')
+        auth_url = users.create_login_url('/login')
     return {
         "nickname": nickname,
         "auth_url": auth_url,
@@ -34,14 +36,6 @@ def get_auth():
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         template= jinja_env.get_template("/templates/home.html")
-
-        # user = users.get_current_user()
-        # nickname = None
-        # if user:
-        #     nickname = user.nickname()
-        #     auth_url = users.create_logout_url('/')
-        # else:
-        #     auth_url = users.create_login_url('/')
 
         self.response.write(template.render(get_auth()))
 
@@ -82,13 +76,13 @@ class AddCoursesHandler(webapp2.RequestHandler):
 
         auth_dict = get_auth()
 
-
         self.response.write(template.render(auth_dict))
 
     def post(self):
 
         # Get the current Google account user
         user = users.get_current_user()
+        print(user)
 
         # If the user doesn't exist, go home
         if user is None:
