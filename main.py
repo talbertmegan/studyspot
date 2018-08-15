@@ -11,6 +11,8 @@ from users import User
 from content_manager import populate_feed, logout_url, login_url
 from data import Course, Teacher, User, Post
 
+from pprint import pprint, pformat
+
 jinja_env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
@@ -118,53 +120,80 @@ class LoadDataHandler(webapp2.RequestHandler):
 
 class CourseService(webapp2.RequestHandler):
 
-  def get(self):
-    key = self.getKey(self.request);
-    course_key = ndb.Key('Courses', key)
-    courses = Course.query().order(Course.name).fetch()
-    # print(courses)
-    results = json.dumps([c.to_dict() for c in courses], default=str)
+    def get(self):
+        key = self.getKey(self.request);
+        course_key = ndb.Key('Courses', key)
+        courses = Course.query().order(Course.name).fetch()
+        teachers = Teacher.query().order(Teacher.name).fetch()
 
-    self.response.headers['Content-Type'] = 'application/json'
-    self.response.write(results)
+        results = []
 
-  # def get(self):
-    # key = self.getKey(self.request);
-    # course_key = ndb.Key('Courses', key)
-  #   # course = Course.query_conversation(course_key).fetch()
-  #   self.response.headers['Content-Type'] = 'application/json'
-  #   self.response.write(
-  #       json.dumps([self.to_serializable(m) for m in course]))
+        for course in courses:
+            result = {}
+            teacher_keys = course.teachers
+            result['course_id'] = course.key.id()
+            result['course_name'] = course.name
+            result['teachers'] = []
 
-  def post(self):
-    key = self.getKey(self.request);
-    content = self.request.get('content');
-    course = Course(parent=ndb.Key("Courses", key), content=content)
-    course.put()
+            for teacher_key in teacher_keys:
 
-  def getKey(self, request):
-    from_user = self.request.get('from');
-    to_user = self.request.get('to');
-    key_values = [from_user, to_user]
-    key_values.sort()
-    return key_values[0] + '_' + key_values[1];
+                for teacher in teachers:
+                    if teacher.key == teacher_key:
+                        teacher_dict = {}
+                        teacher_dict['teacher_name'] = teacher.name
+                        teacher_dict['teacher_id'] = teacher_key.id()
+                        result['teachers'].append(teacher_dict)
 
-  def to_serializable(self, data):
-    """Build a new dict so that the data can be JSON serializable"""
-    result = data.to_dict()
-    record = {}
-    # Populate the new dict with JSON serializiable values
-    for key in result.iterkeys():
-      if isinstance(result[key], datetime.datetime):
-        record[key] = result[key].isoformat()
-        continue
-      record[key] = result[key]
-    # Add the key so that we have a reference to the record
-    record['key'] = data.key.id()
-    return record
+            results.append(result)
+
+        self.response.headers['Content-Type'] = 'application/json'
+        self.response.write(json.dumps(results))
+
+    def post(self):
+        key = self.getKey(self.request);
+        content = self.request.get('content');
+        course = Course(parent=ndb.Key("Courses", key), content=content)
+        course.put()
+
+    def getKey(self, request):
+        from_user = self.request.get('from');
+        to_user = self.request.get('to');
+        key_values = [from_user, to_user]
+        key_values.sort()
+        return key_values[0] + '_' + key_values[1];
+
+    def to_serializable(self, data):
+        """Build a new dict so that the data can be JSON serializable"""
+        result = data.to_dict()
+        record = {}
+        # Populate the new dict with JSON serializiable values
+        for key in result.iterkeys():
+          if isinstance(result[key], datetime.datetime):
+            record[key] = result[key].isoformat()
+            continue
+          record[key] = result[key]
+        # Add the key so that we have a reference to the record
+        record['key'] = data.key.id()
+        return record
 
 
+""" Teacher Service will allow look up by ID in datastore """
+class TeacherService(webapp2.RequestHandler):
+    def get(self):
+        teacher_id = self.getKey(self.request);
+        # course_key = ndb.Key('Courses', key)
+        teachers = Teacher.query().order(Teacher.name).fetch()
+        # print(teachers)
+        results = json.dumps([t.to_dict() for t in teachers], default=str)
 
+        self.response.headers['Content-Type'] = 'application/json'
+        self.response.write(results)
+
+    def getKey(self, request):
+        field = self.request.get('id');
+        id = "";
+        print("field: " + field);
+        return id;
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
@@ -176,4 +205,5 @@ app = webapp2.WSGIApplication([
     ('/viewcourses', ViewCourseHandler),
     ('/seed-data', LoadDataHandler),
     ('/course', CourseService),
+    ('/teacher', TeacherService),
     ], debug=True)

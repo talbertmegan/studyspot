@@ -24,7 +24,7 @@
     2. When you get teachers, populate form with teachers
   -->
     <form method="post" action="/addcourses">
-      <select name="teacher">
+      <select id="teacher" name="teacher">
         <!--for loop -->
       {% for Teacher in teacher_info %}
       <option> {{ Teacher.name }} </option>
