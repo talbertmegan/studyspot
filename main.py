@@ -1,6 +1,8 @@
 import webapp2
 import os
 import jinja2
+import json
+import datetime
 import time
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -69,11 +71,14 @@ class AddCoursesHandler(webapp2.RequestHandler):
         self.redirect('/addcourses')
 
 
-class TeacherHandler(webapp2.RequestHandler):
     def get(self):
         teachers = Teacher.query().order(Teacher.name).fetch()
         template = jinja_env.get_template("templates/addcourses.html")
         self.response.write(template.render({'teacher_info' : teachers}))
+
+    def post(self):
+        self.response.write("This is where I will add the course")
+
 
 class AddTestsHandler(webapp2.RequestHandler):
     def get(self):
@@ -121,6 +126,13 @@ class LoadDataHandler(webapp2.RequestHandler):
         seed_data()
         self.response.write("Seed data added")
 
+class CourseService(webapp2.RequestHandler):
+  def get(self):
+    template = jinja_env.get_template('test.html')
+    self.response.write(template.render())
+
+
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LogInHandler),
@@ -130,5 +142,5 @@ app = webapp2.WSGIApplication([
     ('/chat', ChatHandler),
     ('/viewcourses', ViewCourseHandler),
     ('/seed-data', LoadDataHandler),
-    ('/teachers', TeacherHandler),
+    ('/course', CourseService),
     ], debug=True)
