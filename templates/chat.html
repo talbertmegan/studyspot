@@ -9,11 +9,12 @@
     <link rel="icon" href="/media/studyFavicon.png">
   </head>
   <body>
-    <header>Study Spot</header>
+    <header>Study Spot {{board}}</header>
 
 <!--Console for users to post-->
     <section id="console">
       <div id="user_info">
+        <h2 class="user_info_content" id="board">Course: {{ board }}</h2>
         <h2 class="user_info_content" id="user_name">Name: {{ user_name }}</h2>
         <h2 class="user_info_content" id="username">Username: {{ username }}</h2>
         <p class="user_info_content">Number of Posts: {{ post_count }} </p>
@@ -33,7 +34,7 @@
       {% for post in posts %}
           <div class="textpost">
             <p>
-              <span id="post_author">{{ post[0] }} says...</span> <br>
+              <span id="post_author">{{ post[0] }}: </span> <br>
               {{ post[1] }}
             </p>
             <span id="post_time">{{ post[2] }}</span>

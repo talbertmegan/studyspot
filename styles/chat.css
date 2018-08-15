@@ -25,10 +25,12 @@ header{
    color: white;
    padding-top: 2%;
    font-size: 100%;
+   border-top: 8px solid navy;
   }
 #console{
   padding: 4%;
   border-right: 8px solid navy;
+  border-left: 8px solid navy;
 }
 #menu{
   grid-column: 1 / span 1;
@@ -36,22 +38,42 @@ header{
   background-color: gray;
  }
 #chat{
+  margin: 0;
   grid-column: 2 / span 1;
   grid-row:2;
   background-color: white;
   color: blue;
-  padding-left: 4%;
   font-size: 110%;
 }
 #calendar{
   grid-column: 3 / span 1;
   grid-row: 2;
   background-color: gray;
+  border-right: 8px solid navy;
+  border-left: 8px solid navy;
 }
 #sign_out{
+  text-decoration: none;
+  padding: 3px;
   font-size: 100%;
   border-top: 3px solid navy;
   border-right: 3px solid navy;
   border-bottom: 3px solid navy;
   border-left: 3px solid navy;
+}
+.textpost{
+  margin: 0;
+  overflow: auto;
+  word-wrap: break-word;
+  border-bottom: 5px solid navy;
+  padding-left: 4%;
+}
+#post_author{
+  font-size: 130%;
+  font-weight: bold;
+
+}
+#post_time{
+  font-size: 70%;
+
 }

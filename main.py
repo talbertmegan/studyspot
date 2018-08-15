@@ -5,10 +5,9 @@ import time
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from database import seed_data
-from users import Post, User
+from users import User
 from content_manager import populate_feed, logout_url, login_url
-from data import Course, Teacher, User
-
+from data import Course, Teacher, User, Post
 
 jinja_env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -61,12 +60,9 @@ class AddCoursesHandler(webapp2.RequestHandler):
             )
             new_user_entry.put()
             current_user = new_user_entry
-        else:
-            # if not a new user, existing user submitted a post from feed
-            new_post = Post(author= current_user.key, content= self.request.get("user_post"))
-            new_post.put()
+    
         time.sleep(.2)
-        self.redirect('/addcourses')
+        self.redirect('/chat?course=' + self.request.get("course"))
 
 
 class TeacherHandler(webapp2.RequestHandler):
@@ -93,7 +89,7 @@ class ChatHandler(webapp2.RequestHandler):
             self.redirect('/')
             return
         current_user = User.query().filter(User.email == user.email()).get()
-        chat_fields = populate_feed(current_user)
+        chat_fields = populate_feed(current_user, self.request.get("course"))
         start_chat = jinja_env.get_template("templates/chat.html")
         self.response.write(start_chat.render(chat_fields))
 
@@ -103,18 +99,17 @@ class ChatHandler(webapp2.RequestHandler):
             self.redirect('/')
             return
         current_user = User.query().filter(User.email == user.email()).get()
-        new_post = Post(author= current_user.key, content= self.request.get("user_post"))
+        print(self.request.get("course"))
+        new_post = Post(author= current_user.key, board=self.request.get("course"), content= self.request.get("user_post"))
         new_post.put()
         time.sleep(.2)
-        self.redirect('/chat')
-
+        self.redirect('/chat?course=' + self.request.get("course"))
 
 class ViewCourseHandler(webapp2.RequestHandler):
     def get(self):
         userdata_template = jinja_env.get_template("/templates/userdata.html")
         fields = {"names": User.query().filter(User.email == user.email()).get()}
         self.response.write(template.render(fields))
-
 
 class LoadDataHandler(webapp2.RequestHandler):
     def get(self):
