@@ -71,11 +71,6 @@ class AddCoursesHandler(webapp2.RequestHandler):
         self.redirect('/addcourses')
 
 
-    def get(self):
-        teachers = Teacher.query().order(Teacher.name).fetch()
-        template = jinja_env.get_template("templates/addcourses.html")
-        self.response.write(template.render({'teacher_info' : teachers}))
-
     def post(self):
         self.response.write("This is where I will add the course")
 
@@ -127,13 +122,26 @@ class LoadDataHandler(webapp2.RequestHandler):
         self.response.write("Seed data added")
 
 class CourseService(webapp2.RequestHandler):
+
   def get(self):
     key = self.getKey(self.request);
-    course_key = ndb.Key('Courses', key)
-    course = Course.query_conversation(course_key).fetch()
+    ancestor_key = ndb.Key('Courses', key)
+    courses = Course.query_courses(ancestor_key).fetch()
+    # courses = Course.query().order(Course.name).fetch()
+    print(courses)
+    # template = jinja_env.get_template("templates/addcourses.html")
+    # self.response.write(template.render({'course_info' : courses}))
     self.response.headers['Content-Type'] = 'application/json'
     self.response.write(
-        json.dumps([self.to_serializable(m) for m in course]))
+        json.dumps([self.to_serializable(m) for m in courses]))
+
+  # def get(self):
+    # key = self.getKey(self.request);
+    # course_key = ndb.Key('Courses', key)
+  #   # course = Course.query_conversation(course_key).fetch()
+  #   self.response.headers['Content-Type'] = 'application/json'
+  #   self.response.write(
+  #       json.dumps([self.to_serializable(m) for m in course]))
 
   def post(self):
     key = self.getKey(self.request);
