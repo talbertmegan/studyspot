@@ -1,6 +1,8 @@
 import webapp2
 import os
 import jinja2
+import json
+import datetime
 import time
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -65,11 +67,9 @@ class AddCoursesHandler(webapp2.RequestHandler):
         self.redirect('/chat?course=' + self.request.get("course"))
 
 
-class TeacherHandler(webapp2.RequestHandler):
-    def get(self):
-        teachers = Teacher.query().order(Teacher.name).fetch()
-        template = jinja_env.get_template("templates/addcourses.html")
-        self.response.write(template.render({'teacher_info' : teachers}))
+    def post(self):
+        self.response.write("This is where I will add the course")
+
 
 class AddTestsHandler(webapp2.RequestHandler):
     def get(self):
@@ -116,6 +116,58 @@ class LoadDataHandler(webapp2.RequestHandler):
         seed_data()
         self.response.write("Seed data added")
 
+class CourseService(webapp2.RequestHandler):
+
+  def get(self):
+    key = self.getKey(self.request);
+    ancestor_key = ndb.Key('Courses', key)
+    courses = Course.query_courses(ancestor_key).fetch()
+    # courses = Course.query().order(Course.name).fetch()
+    print(courses)
+    # template = jinja_env.get_template("templates/addcourses.html")
+    # self.response.write(template.render({'course_info' : courses}))
+    self.response.headers['Content-Type'] = 'application/json'
+    self.response.write(
+        json.dumps([self.to_serializable(m) for m in courses]))
+
+  # def get(self):
+    # key = self.getKey(self.request);
+    # course_key = ndb.Key('Courses', key)
+  #   # course = Course.query_conversation(course_key).fetch()
+  #   self.response.headers['Content-Type'] = 'application/json'
+  #   self.response.write(
+  #       json.dumps([self.to_serializable(m) for m in course]))
+
+  def post(self):
+    key = self.getKey(self.request);
+    content = self.request.get('content');
+    course = Course(parent=ndb.Key("Courses", key), content=content)
+    course.put()
+
+  def getKey(self, request):
+    from_user = self.request.get('from');
+    to_user = self.request.get('to');
+    key_values = [from_user, to_user]
+    key_values.sort()
+    return key_values[0] + '_' + key_values[1];
+
+  def to_serializable(self, data):
+    """Build a new dict so that the data can be JSON serializable"""
+    result = data.to_dict()
+    record = {}
+    # Populate the new dict with JSON serializiable values
+    for key in result.iterkeys():
+      if isinstance(result[key], datetime.datetime):
+        record[key] = result[key].isoformat()
+        continue
+      record[key] = result[key]
+    # Add the key so that we have a reference to the record
+    record['key'] = data.key.id()
+    return record
+
+
+
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LogInHandler),
@@ -125,5 +177,5 @@ app = webapp2.WSGIApplication([
     ('/chat', ChatHandler),
     ('/viewcourses', ViewCourseHandler),
     ('/seed-data', LoadDataHandler),
-    ('/teachers', TeacherHandler),
+    ('/course', CourseService),
     ], debug=True)

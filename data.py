@@ -18,4 +18,8 @@ class Teacher(ndb.Model):
 
 class Course(ndb.Model):
     name = ndb.StringProperty(required=True)
-    teacher = ndb.KeyProperty(Teacher,repeated=True)
+    teachers = ndb.KeyProperty(Teacher,repeated=True)
+
+    @classmethod
+    def query_courses(cls, ancestor_key):
+      return cls.query(ancestor=ancestor_key).order(cls.name)
