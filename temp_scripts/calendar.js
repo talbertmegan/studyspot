@@ -80,7 +80,13 @@ function appendPre(message) {
   var textContent = document.createTextNode(message + '\n');
   pre.appendChild(textContent);
 }
-
+function filterEvents(eventTitle, when, course_list){
+  for items in course_list{
+    if eventTitle.includes(str(item)){
+      return eventTitle + ' (' + when + ')';
+    }
+  }
+}
 /**
  * Print the summary and start datetime/date of the next ten events in
  * the authorized user's calendar. If no events are found an
@@ -105,7 +111,8 @@ function listUpcomingEvents() {
         if (!when) {
           when = event.start.date;
         }
-        appendPre(event.summary + ' (' + when + ')')
+
+        appendPre(filterEvents(event.summary, when, ))
       }
     } else {
       appendPre('No upcoming events found.');
