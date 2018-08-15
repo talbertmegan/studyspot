@@ -54,7 +54,12 @@
 
       </div>
     </section>
-    <section id="users">list of users in the chat here</section>
+    <section id="about">
+           <div id="about_content">
+               <h1 id="total_title">Total number of users: {{ user_count }}</h1> {% for user in users %}
+               <h1 id="target_info">{{ user.username }}</h1> {% endfor %}
+           </div>
+    </section>
 
     <footer>Study Spot, your online spot for finding study groups</footer>
     <script src="scripts/API_keys.js" type="text/javascript"></script>
