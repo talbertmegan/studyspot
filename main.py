@@ -29,7 +29,7 @@ class MainHandler(webapp2.RequestHandler):
             auth_url = users.create_logout_url('/')
         else:
             auth_url = users.create_login_url('/')
-            
+
         self.response.write(template.render({
             "nickname": nickname,
             "auth_url": auth_url,
@@ -37,7 +37,7 @@ class MainHandler(webapp2.RequestHandler):
         }))
 
 
-        self.response.write(template.render())
+        # self.response.write(template.render())
 
 class LogInHandler(webapp2.RequestHandler):
     def get(self):

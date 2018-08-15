@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h1>Courses</h1>
+{% extends "templates/layout.html" %}
+{% block body %}
   <p>Add a course:</p>
     <form method="get" action="/chat">
       <select id="course" name="course">
@@ -14,14 +8,11 @@
         <option>Science</option>
         <option>Social Studies</option> -->
       </select>
-
-
     <h1>Teachers</h1>
   <p>Add a teacher:</p>
   <!--STEPS
     1. Get the teachers based off the Course
-    2. When you get teachers, populate form with teachers
-  -->
+    2. When you get teachers, populate form with teachers  -->
 
       <select id="teacher" name="teacher">
         <!--for loop -->
@@ -32,5 +23,4 @@
       <input type="submit">
     </form>
     <script src="scripts/course.js"></script>
-  </body>
-</html>
+{% endblock %}
