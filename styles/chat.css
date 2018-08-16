@@ -4,6 +4,7 @@ body {
   height: 100vh;
   grid-template-rows: 170px auto 170px 70px;
   grid-template-columns: 300px auto 400px;
+  font-family: 'Arvo', serif;
 }
 header{
   padding: 2%;

@@ -1,12 +1,13 @@
 {% extends "templates/layout.html" %}
 {% block body %}
-  <div>
+  <div id="current_courses">
     <p >Current Courses</p>
     {% for course in courses %}
       <p>{{ course }}</p>
     {% endfor %}
   </div>
     <!--FORM -->
+  <div id="register">
     <form method="post" action="/user-course">
       <h1>Register</h1>
       <p>Select Course:</p>
@@ -19,7 +20,7 @@
       </select>
       <input type="submit">
     </form>
-    
+  </div>
 
     <script src="scripts/course.js"></script>
 {% endblock %}
