@@ -46,12 +46,13 @@ footer{
   color: white;
   padding-top: 1%;
   font-size: 100%;
+  font-family: 'Arvo', serif;
  }
- a#auth {
+a#auth {
   color: white;
   text-decoration: none;
- }
- a#login {
+}
+a#login{
   color: black;
   text-decoration: none;
   font-size: 400%;
@@ -60,16 +61,16 @@ footer{
   border-right: 7px solid navy;
   border-bottom: 7px solid navy;
   border-left: 7px solid navy;
- }
+  font-family: 'Arvo', serif;
+}
  #signout_button{
    font-size: 100%;
    margin-top: 400px;
- }
+}
  #logInButton{
   margin-top: 15%;
   font-size: 300%;
- }
+}
  #welcome_text{
    font-size: 100%;
- }
- 
+}
