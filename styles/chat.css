@@ -28,7 +28,7 @@ footer{
   font-size: 100%;
 }
 button, input, #sign_out{
-  background-color: rgb(115,20,29);
+ background-color: rgb(115,20,29);
  border: none;
  color: rgb(235,243,244);
  padding: 10px 20px;
@@ -49,6 +49,7 @@ button:hover, input:hover {
   border-right: 8px solid navy;
   border-left: 8px solid navy;
   border-bottom: 8px solid navy;
+  text-shadow: 1px 1px 3px gray;
 }
 #menu{
   grid-column: 1 / span 1;
@@ -70,13 +71,15 @@ button:hover, input:hover {
 #calendar{
   grid-column: 3 / span 1;
   grid-row: 2;
-  background-color: gray;
+  background-color: white;
   border-right: 8px solid navy;
   border-left: 8px solid navy;
   border-bottom: 8px solid navy;
   white-space: pre-wrap;
   text-align: center;
   font-weight: bold;
+  font-size: 20px;
+  text-shadow: 1px 1px 3px gray;
 }
 #users{
   grid-column: 3 / span 1;
@@ -97,6 +100,7 @@ button:hover, input:hover {
   font-size: 150%;
   font-weight: bold;
   color: rgb(155,20,29);
+
 }
 #post_time{
   font-size: 70%;
@@ -126,4 +130,8 @@ div#textpost{
 }
 #login{
   background-color: white;
+}
+#about_content{
+  text-shadow: 1px 1px 3px gray;
+  font-weight: 100;
 }

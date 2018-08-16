@@ -118,7 +118,7 @@ function listUpcomingEvents() {
           when = event.start.date;
         }
         // appendPre("almost to the filter step")
-        let filteredEvent = filterEvents(event.summary, when, ['test', 'math', 'science']);
+        let filteredEvent = filterEvents(event.summary, when, ['english', 'math', 'science']);
         if (filteredEvent) {
           appendPre(filteredEvent);
           appendPre('\n');
