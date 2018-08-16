@@ -9,7 +9,8 @@ from google.appengine.ext import ndb
 from database import seed_data
 from users import User
 from content_manager import populate_feed, logout_url, login_url
-from data import Course, Teacher, User, Post
+from data import Course, Teacher, User, Post, Enrollment
+
 
 from pprint import pprint, pformat
 
@@ -45,15 +46,20 @@ class LogInHandler(webapp2.RequestHandler):
     def get(self):
         google_login_template = jinja_env.get_template("/templates/google_login.html")
         new_user_template = jinja_env.get_template("/templates/new_user.html")
+
         user = users.get_current_user()
+
         if user:
             print("ACCOUNT EXISTS:")
             print(user.email())
             print(user.nickname())
 
+
             existing_user = User.query().filter(User.email == user.email()).get()
             nickname = user.nickname()
-            self.redirect('/addcourses')
+            if existing_user:
+                self.redirect('/addcourses')
+
             if not existing_user:
                 fields = {
                   "nickname": nickname,
@@ -65,11 +71,21 @@ class LogInHandler(webapp2.RequestHandler):
         else:
             self.response.write(google_login_template.render({ "login_url": login_url  }))
 
+
+
 class AddCoursesHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_env.get_template("/templates/addcourses.html")
-        auth_dict = get_auth()
-        self.response.write(template.render(auth_dict))
+
+        google_user = users.get_current_user()
+        study_spot_user =  User.query().filter(User.email == google_user.email()).get()
+
+        enrollments = Enrollment.query().filter(Enrollment.user == study_spot_user.key).fetch()
+        courses = [e.course.get().name for e in enrollments]
+        params = get_auth()
+        params['courses'] = courses
+        self.response.write(template.render(params))
+
 
     def post(self):
         # Get the current Google account user
@@ -81,6 +97,7 @@ class AddCoursesHandler(webapp2.RequestHandler):
             return
         # Fetch the user from the data store
         current_user = User.query().filter(User.email == user.email()).get()
+
         # If the user doesn't exist in the data store, create and put the new user
         if not current_user:
             new_user_entry = User(
@@ -91,8 +108,8 @@ class AddCoursesHandler(webapp2.RequestHandler):
             new_user_entry.put()
             current_user = new_user_entry
 
-            time.sleep(.2)
 
+        time.sleep(.2)
         self.redirect('/addcourses')
 
 class ChatHandler(webapp2.RequestHandler):
@@ -101,13 +118,16 @@ class ChatHandler(webapp2.RequestHandler):
         if user is None:
             self.redirect('/')
             return
+
         print("user.email(): " + user.email())
         # Get current user from data store
         current_user = User.query().filter(User.email == user.email()).get()
+
         if current_user is None:
             self.redirect('/')
             return
         print(current_user);
+
         chat_fields = populate_feed(current_user, self.request.get("course") +" "+ self.request.get("teacher"))
         start_chat = jinja_env.get_template("templates/chat.html")
         self.response.write(start_chat.render(chat_fields))
@@ -219,8 +239,17 @@ class UserCourseService(webapp2.RequestHandler):
         print(stub)
 
     def post(self):
-        stub='[]'
-        print(stub)
+        google_user = users.get_current_user()
+        study_spot_user = User.query().filter(User.email == google_user.email()).get()
+        course_name = self.request.get("course")
+        course = Course.query().filter(Course.name == course_name).get();
+        Enrollment(user=study_spot_user.key, course=course.key).put()
+        teacher_name = self.request.get("teacher")
+        time.sleep(.2)
+        self.redirect("/chat?course={}&teacher={}".format(course.name, teacher_name))
+
+        print("/chat?course={}&teacher={}".format(course.name, teacher_name))
+
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),

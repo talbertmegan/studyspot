@@ -1,30 +1,25 @@
 {% extends "templates/layout.html" %}
 {% block body %}
-<div id=courses>
-  <h1>Courses</h1>
-  <p>Add a course:</p>
-    <form method="get" action="/chat">
-      <select id="course" name="course">
-        <!-- <option>English</option>
-        <option>Math</option>
-        <option>Science</option>
-        <option>Social Studies</option> -->
-      </select>
-</div>
-<div id=teachers>
-  <h1>Teachers</h1>
-  <p>Add a teacher:</p>
-  <!--STEPS
-    1. Get the teachers based off the Course
-    2. When you get teachers, populate form with teachers  -->
+  <div>
+    <p >Current Courses</p>
+    {% for course in courses %}
+      <p>{{ course }}</p>
+    {% endfor %}
+  </div>
+    <!--FORM -->
+    <form method="post" action="/user-course">
+      <h1>Register</h1>
+      <p>Select Course:</p>
+      <select id="course" name="course"></select>
+      <p>Select Teacher:</p>
       <select id="teacher" name="teacher">
-        <!--for loop -->
-      {% for Teacher in teacher_info %}
-      <option> {{ Teacher.name }} </option>
-      {% endfor %}
+        {% for Teacher in teacher_info %}
+          <option> {{ Teacher.name }} </option>
+        {% endfor %}
       </select>
       <input type="submit">
     </form>
-</div>
+    
+
     <script src="scripts/course.js"></script>
 {% endblock %}
