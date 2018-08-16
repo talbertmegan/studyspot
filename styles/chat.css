@@ -117,11 +117,11 @@ div#textpost{
 }
 #user_info, #about{
   font-family: 'Arvo', serif;
-  overflow: scroll;
 }
 #about{
   border-left: 8px solid navy;
   border-bottom: 8px solid navy;
   border-right: 8px solid navy;
   padding-left: 15px;
+  overflow: scroll;
 }
