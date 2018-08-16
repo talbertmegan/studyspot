@@ -27,6 +27,9 @@ footer{
   font-size: 100%;
 
 }
+/* section{
+    white-space: pre-wrap;
+} */
 button, input{
   background-color: rgb(115,20,29);
  border: none;
@@ -70,7 +73,10 @@ button:hover, input:hover {
   background-color: gray;
   border-right: 8px solid navy;
   border-left: 8px solid navy;
-    border-bottom: 8px solid navy;
+  border-bottom: 8px solid navy;
+  white-space: pre-wrap;
+  text-align: center;
+  font-weight: bold;
 }
 #users{
   grid-column: 3 / span 1;
@@ -109,7 +115,5 @@ button:hover, input:hover {
   width: 180px;
 }
 #signout_button{
-  opacity: 0;
-  height: 1px;
-  width: 1px;
+  display: none;
 }

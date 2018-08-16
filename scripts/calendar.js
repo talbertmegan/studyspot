@@ -46,7 +46,7 @@ function initClient() {
 function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
     authorizeButton.style.display = 'none';
-    signoutButton.style.display = 'block';
+    signoutButton.style.display = 'none';
     listUpcomingEvents();
   } else {
     authorizeButton.style.display = 'block';
@@ -108,7 +108,7 @@ function listUpcomingEvents() {
   }).then(function(response) {
     var events = response.result.items;
     appendPre('Upcoming events:');
-    appendPre('\n');
+    // appendPre('\n');
 
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
@@ -126,7 +126,7 @@ function listUpcomingEvents() {
         // appendPre("passed the filter step")
       }
     } else {
-      appendPre('No upcoming events found.');
+      appendPre('No upcoming events found! Congratulations!');
     }
   });
 }
