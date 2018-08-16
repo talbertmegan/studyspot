@@ -80,7 +80,7 @@ function appendPre(message) {
   pre.appendChild(textContent);
 }
 
-function filterEvents(eventTitle, when, course_list){
+function filterEvents(eventTitle, time, course_list){
   // course_list.forEach(item => {
   //   // if (eventTitle.includes(`${item}`)) {
   //   //   return eventTitle + ' (' + when + ')';
@@ -88,7 +88,7 @@ function filterEvents(eventTitle, when, course_list){
   //   }
   let filteredTitle = eventTitle.toLowerCase().split(" ");
   if (course_list.includes(filteredTitle[0])) {
-    return eventTitle + ' (' + when + ')';
+    return eventTitle + ' on ' + time ;
   }
 }
 
@@ -117,8 +117,16 @@ function listUpcomingEvents() {
         if (!when) {
           when = event.start.date;
         }
+        var when2 = event.end.dateTime;
+        if (!when2) {
+          when2 = event.end.date;
+        }
+        var d = new Date(when);
+                var time = d.toLocaleString();
+            var d = new Date(when2);
+                var time2 = d.toLocaleString();
         // appendPre("almost to the filter step")
-        let filteredEvent = filterEvents(event.summary, when, ['english', 'math', 'science']);
+        let filteredEvent = filterEvents(event.summary, time, ['english', 'math', 'science', 'socialstudies']);
         if (filteredEvent) {
           appendPre(filteredEvent);
           appendPre('\n');
