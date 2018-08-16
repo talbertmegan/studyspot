@@ -1,0 +1,51 @@
+body{
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 3fr .5fr;
+  height: 100vh;
+}
+header{
+  padding: 3%;
+  grid-column: 1 / span 2;
+  grid-row: 1;
+  text-align: center;
+  color: rgb(115,20,29);
+  text-shadow: 4px 3px 1px rgb(10,37,100);
+  background-color: white;
+  font-size: 650%;
+  font-family: 'Cabin Sketch', cursive;
+  border-bottom: 8px solid navy;
+  position: relative;
+ }
+ body, nav{
+   background-image: url("/media/lmu.jpg");
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   overflow: scroll;
+ }
+ div{
+   text-align: center;
+ }
+ div#courses{
+   grid-column: 1;
+   grid-row: 2;
+ }
+ div#teachers{
+   grid-column: 2;
+   grid-row: 2;
+ }
+ footer{
+   grid-column: 1 / span 2;
+   grid-row: 3;
+   background-color: rgb(115,20,29);
+   text-align: center;
+   color: white;
+   padding-top: 1%;
+   font-size: 100%;
+  }
+  a#auth {
+   color: white;
+   text-decoration: none;
+  }

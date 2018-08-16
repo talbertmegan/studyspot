@@ -5,18 +5,10 @@
     <meta charset="utf-8">
     <title></title>
     <link rel= "stylesheet"
-      href = "/styles/study.css">
+      href = "/styles/addcourses.css">
     <link rel="icon" href="/media/studyFavicon.png">
   </head>
   <body>
-
-    <div>
-      {% if nickname %}
-        {{ nickname }} •
-      {% endif %}
-      <a id="auth" href="{{ auth_url }}">{{ auth_text }}</a>
-    </div>
-
     <header id="title">Study Spot</header>
 
     {% block body %}{% endblock %}
