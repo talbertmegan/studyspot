@@ -97,7 +97,6 @@ button:hover, input:hover {
   font-size: 150%;
   font-weight: bold;
   color: rgb(155,20,29);
-
 }
 #post_time{
   font-size: 70%;
@@ -124,4 +123,7 @@ div#textpost{
   border-right: 8px solid navy;
   padding-left: 15px;
   overflow: scroll;
+}
+#login{
+  background-color: white;
 }

@@ -45,14 +45,11 @@ class LogInHandler(webapp2.RequestHandler):
     def get(self):
         google_login_template = jinja_env.get_template("/templates/google_login.html")
         new_user_template = jinja_env.get_template("/templates/new_user.html")
-
         user = users.get_current_user()
-
         if user:
             print("ACCOUNT EXISTS:")
             print(user.email())
             print(user.nickname())
-
 
             existing_user = User.query().filter(User.email == user.email()).get()
             nickname = user.nickname()
@@ -68,14 +65,10 @@ class LogInHandler(webapp2.RequestHandler):
         else:
             self.response.write(google_login_template.render({ "login_url": login_url  }))
 
-
-
 class AddCoursesHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_env.get_template("/templates/addcourses.html")
-
         auth_dict = get_auth()
-
         self.response.write(template.render(auth_dict))
 
     def post(self):
@@ -88,7 +81,6 @@ class AddCoursesHandler(webapp2.RequestHandler):
             return
         # Fetch the user from the data store
         current_user = User.query().filter(User.email == user.email()).get()
-
         # If the user doesn't exist in the data store, create and put the new user
         if not current_user:
             new_user_entry = User(
@@ -109,16 +101,13 @@ class ChatHandler(webapp2.RequestHandler):
         if user is None:
             self.redirect('/')
             return
-
         print("user.email(): " + user.email())
         # Get current user from data store
         current_user = User.query().filter(User.email == user.email()).get()
-
         if current_user is None:
             self.redirect('/')
             return
         print(current_user);
-
         chat_fields = populate_feed(current_user, self.request.get("course") +" "+ self.request.get("teacher"))
         start_chat = jinja_env.get_template("templates/chat.html")
         self.response.write(start_chat.render(chat_fields))

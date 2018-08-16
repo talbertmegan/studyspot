@@ -19,8 +19,14 @@
 
     <header id="title">Study Spot</header>
 
-
-
     {% block body %}{% endblock %}
+    <footer>Study Spot, your online spot for finding study groups
+      <div id="email_signout">
+        {% if nickname %}
+          {{ nickname }} •
+        {% endif %}
+        <a id="auth" href="{{ auth_url }}">{{ auth_text }}</a>
+      </div>
+    </footer>
   </body>
 </html>

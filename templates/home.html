@@ -9,21 +9,19 @@
     <link rel="icon" href="/media/studyFavicon.png">
   </head>
   <body>
-
     <header>Study Spot</header>
-
-    <div>
-      {% if nickname %}
-        {{ nickname }} •
-      {% endif %}
-      <a id="auth" href="{{ auth_url }}">{{ auth_text }}</a>
-    </div>
-
     <nav>
       <!-- <button onclick="/templates/layout.html">Go home</button> -->
       <a id="login" href="{{ auth_url }}">{{ auth_text }}</a>
     </nav>
-    <footer>Study Spot, your online spot for finding study groups</footer>
+    <footer>Study Spot, your online spot for finding study groups
+      <div id="email_signout">
+        {% if nickname %}
+          {{ nickname }} •
+        {% endif %}
+        <a id="auth" href="{{ auth_url }}">{{ auth_text }}</a>
+      </div>
+    </footer>
 
   </body>
   <!-- <script src=loginButton.js></script> -->

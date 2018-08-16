@@ -18,6 +18,13 @@ header{
   border-bottom: 8px solid navy;
   position: relative;
  }
+ body, nav{
+   background-image: url("/media/lmu.jpg");
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   overflow: scroll;
+ }
 section{
   padding: 10px 10px 10px 10px;
  }
@@ -37,16 +44,13 @@ footer{
   background-color: rgb(115,20,29);
   text-align: center;
   color: white;
-  padding-top: 2%;
+  padding-top: 1%;
   font-size: 100%;
  }
-
  a#auth {
-  color: black;
+  color: white;
   text-decoration: none;
-
  }
-
  a#login {
   color: black;
   text-decoration: none;
@@ -57,13 +61,10 @@ footer{
   border-bottom: 7px solid navy;
   border-left: 7px solid navy;
  }
-
-
  #signout_button{
    font-size: 100%;
    margin-top: 400px;
  }
-
  #logInButton{
   margin-top: 15%;
   font-size: 300%;
