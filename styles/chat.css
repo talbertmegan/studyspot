@@ -61,7 +61,7 @@ button:hover, input:hover, #sign_out:hover{
   grid-column: 2 / span 1;
   grid-row:2 / span 2;
   background-color: white;
-  color: blue;
+  color: navy;
   font-size: 110%;
   overflow: scroll;
   border-bottom: 8px solid navy;
@@ -98,11 +98,9 @@ button:hover, input:hover, #sign_out:hover{
   font-size: 150%;
   font-weight: bold;
   color: rgb(155,20,29);
-
 }
 #post_time{
   font-size: 70%;
-
 }
 #text_box{
   width: 180px;
