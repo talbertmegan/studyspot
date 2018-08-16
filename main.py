@@ -239,6 +239,15 @@ class TeacherService(webapp2.RequestHandler):
         print("field: " + field);
         return id;
 
+class UserCourseService(webapp2.RequestHandler):
+    def get(self):
+        stub='[]'
+        print(stub)
+
+    def post(self):
+        stub='[]'
+        print(stub)
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login', LogInHandler),
@@ -250,4 +259,5 @@ app = webapp2.WSGIApplication([
     ('/seed-data', LoadDataHandler),
     ('/course', CourseService),
     ('/teacher', TeacherService),
+    ('/user-course', UserCourseService),
     ], debug=True)
