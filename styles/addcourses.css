@@ -25,7 +25,12 @@ body, nav{
   background-attachment: fixed;
   overflow: scroll;
 }
- div{
+ div#current_courses{
+  text-align: center;
+  font-family: 'Arvo', serif;
+  text-shadow: 3px 3px 1px rgb(115,20,29);
+}
+div#register{
   text-align: center;
   font-family: 'Arvo', serif;
   text-shadow: 3px 3px 1px rgb(115,20,29);
