@@ -3,7 +3,7 @@ body {
   display: grid;
   height: 100vh;
   grid-template-rows: 170px auto 170px 70px;
-  grid-template-columns: 215px auto 400px;
+  grid-template-columns: 300px auto 400px;
 }
 header{
   padding: 2%;
@@ -16,6 +16,7 @@ header{
   font-size: 650%;
   font-family: 'Cabin Sketch', cursive;
   border-bottom: 8px solid navy;
+
 }
 footer{
   grid-column: 1 / span 3;
@@ -25,25 +26,21 @@ footer{
   color: white;
   padding-top: 2%;
   font-size: 100%;
-
 }
-/* section{
-    white-space: pre-wrap;
-} */
-button, input{
+button, input, #sign_out{
   background-color: rgb(115,20,29);
  border: none;
  color: rgb(235,243,244);
- padding: 15px 25px;
+ padding: 10px 20px;
  text-align: center;
  font-size: 16px;
  cursor: pointer;
+ margin: 6px 2px 6px 2px;
 }
 
 button:hover, input:hover {
  background-color: rgb(155,20,29);
 }
-
 
 #console{
   grid-column: 1 / span 1;
@@ -51,6 +48,7 @@ button:hover, input:hover {
   padding: 4%;
   border-right: 8px solid navy;
   border-left: 8px solid navy;
+  border-bottom: 8px solid navy;
 }
 #menu{
   grid-column: 1 / span 1;
@@ -66,6 +64,8 @@ button:hover, input:hover {
   background-color: white;
   color: blue;
   font-size: 110%;
+  overflow: scroll;
+  border-bottom: 8px solid navy;
 }
 #calendar{
   grid-column: 3 / span 1;
@@ -84,27 +84,19 @@ button:hover, input:hover {
   background-color: blue;
   border-right: 8px solid navy;
   border-left: 8px solid navy;
-
-}
-#sign_out{
-  text-decoration: none;
-  padding: 3px;
-  font-size: 100%;
-  border-top: 3px solid navy;
-  border-right: 3px solid navy;
-  border-bottom: 3px solid navy;
-  border-left: 3px solid navy;
 }
 .textpost{
   margin: 0;
   overflow: auto;
   word-wrap: break-word;
-  border-bottom: 5px solid navy;
   padding-left: 4%;
+  box-shadow: 2px 2px 7px blue;
+  border-radius: 2px;
 }
 #post_author{
-  font-size: 130%;
+  font-size: 150%;
   font-weight: bold;
+  color: rgb(155,20,29);
 
 }
 #post_time{
@@ -116,4 +108,20 @@ button:hover, input:hover {
 }
 #signout_button{
   display: none;
+}
+#board, #user_name, #username{
+  font-size: 170%;
+}
+div#textpost{
+  background-color: rgb(233,233,233);
+}
+#user_info, #about{
+  font-family: 'Arvo', serif;
+  overflow: scroll;
+}
+#about{
+  border-left: 8px solid navy;
+  border-bottom: 8px solid navy;
+  border-right: 8px solid navy;
+  padding-left: 15px;
 }
